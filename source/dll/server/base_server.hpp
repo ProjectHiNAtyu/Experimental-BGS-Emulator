@@ -1,0 +1,31 @@
+#pragma once
+
+#include <cstdint>
+#include <queue>
+#include <string>
+
+namespace bgsemu
+{
+	class base_server
+	{
+	public:
+		using stream_queue = std::queue<char>;
+		using data_queue   = std::queue<std::string>;
+
+		explicit base_server(std::string name);
+
+		base_server(base_server&&)                 = delete;
+		base_server(const base_server&)            = delete;
+		base_server& operator=(base_server&&)      = delete;
+		base_server& operator=(const base_server&) = delete;
+
+		virtual ~base_server() = default;
+
+		const std::string& get_name()    const;
+		uint32_t           get_address() const;
+
+	private:
+		std::string   name_;
+		std::uint32_t address_ = 0;
+	};
+}
